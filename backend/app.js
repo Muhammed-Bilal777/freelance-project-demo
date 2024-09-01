@@ -4,7 +4,7 @@ import errorMiddleware from './middlewares/errors.js'
 
 
 import { dbConnect } from "./database/dbConnect.js";
-
+import cookieParser from "cookie-parser";
 const app =express() ;
 app.use(express.json());
 
@@ -21,10 +21,17 @@ try {
     process.exit(1);
   }
 
+app.use(cookieParser())
+
 
 //Routes
 import productRoutes from "./routes/productRoutes.js"
-app.use("/api/v1",productRoutes )
+import userRoutes from "./routes/userRoutes.js"
+import orderRoutes from "./routes/ordersRoutes.js"
+
+app.use("/api/v1",productRoutes)
+app.use("/api/v1" ,userRoutes)
+app.use('/api/v1',orderRoutes)
 
  
 
