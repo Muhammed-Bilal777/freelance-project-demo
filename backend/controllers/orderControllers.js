@@ -129,3 +129,15 @@ export const updateOrderDetails =catchAsync(async (req,res,next)=>{
         order
     })
 })
+
+
+//Delete Order by ID
+
+export const deleteOrder =catchAsync(async(req,res,next)=>{
+    let order = await Order.findByIdAndDelete(req?.params?.id);
+
+    res.status(200).send({
+       message:"Order deleted successfully",
+       order
+    })
+})
