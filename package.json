@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node backend/app.js",
-    "dev": "SET NODE_ENV=DEVELOPMENT& node --watch backend/app.js"
+    "dev": "SET NODE_ENV=DEVELOPMENT& node --watch backend/app.js",
+    "prod" : "SET NODE_ENV=PRODUCTION& node --watch backend/app.js"
   },
   "keywords": [
     "E=commerece",
