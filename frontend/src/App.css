@@ -85,10 +85,13 @@ nav {
 .card {
   height: 100%;
 }
-
+.card-title {
+  line-height: 22px;
+}
 .card-title a {
   color: #2e2e2e;
   text-decoration: none;
+  font-size: 16px;
 }
 
 .card-title a:hover {
@@ -563,3 +566,17 @@ footer {
   border-radius: 0.3rem;
   color: #fa9c23;
 }
+
+.images{
+  height: 120px !important;
+  width: 150px !important; 
+}
+
+@media (max-width:400px) {
+  .images{
+    height: 100px !important;
+    width: 100px !important; 
+  }
+}
+
+ 
