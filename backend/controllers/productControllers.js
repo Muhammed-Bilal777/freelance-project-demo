@@ -10,9 +10,9 @@ export const getAllProducts= catchAsync(async (req,res,next)=>{
   
    let resPerPage = 4;
    const apiFilters = new APIFilters(Product,req.query).search().filters()
-
+  
    let products = await apiFilters.query;
- 
+   let totalProducts= products.length
     apiFilters.pagination(resPerPage);
     products = await apiFilters.query.clone()
 
@@ -21,8 +21,9 @@ export const getAllProducts= catchAsync(async (req,res,next)=>{
      }
 
      res.send({
-        totalProducts: products.length,
-        products
+        totalProducts ,
+        products,
+        resPerPage
      })
 })
 

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node backend/app.js",
     "dev": "SET NODE_ENV=DEVELOPMENT& node --watch backend/app.js",
-    "prod" : "SET NODE_ENV=PRODUCTION& node --watch backend/app.js"
+    "prod": "SET NODE_ENV=PRODUCTION& node --watch backend/app.js"
   },
   "keywords": [
     "E=commerece",
@@ -18,6 +18,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
+    "cloudinary": "^2.4.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

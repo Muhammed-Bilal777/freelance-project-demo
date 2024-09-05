@@ -1,7 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import errorMiddleware from './middlewares/errors.js'
-
+import cors from "cors"
 
 import { dbConnect } from "./database/dbConnect.js";
 import cookieParser from "cookie-parser";
@@ -22,7 +22,7 @@ try {
   }
 
 app.use(cookieParser())
-
+app.use(cors())
 
 //Routes
 import productRoutes from "./routes/productRoutes.js"
