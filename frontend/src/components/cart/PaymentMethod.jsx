@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
  
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
  
  
 import { toast } from "react-hot-toast";
@@ -9,6 +9,7 @@ import { caluclateOrderCost } from "../../helpers/helper";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
 import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from "../../redux/apis/orderApi";
+import { clearCart } from "../../redux/features/cartItems";
 
 const PaymentMethod = () => {
   const [method, setMethod] = useState("");
@@ -20,7 +21,7 @@ const PaymentMethod = () => {
   const [createNewOrder, { isLoading, error, isSuccess,data }] =
     useCreateNewOrderMutation();
 
-
+   const dispatch = useDispatch()
     const [stripeCheckoutSession ,{ data :CheckoutData , error:checkoutError, 
       isSuccess : checkoutSuccess }] =useStripeCheckoutSessionMutation()
   useEffect(() => {
@@ -30,7 +31,8 @@ const PaymentMethod = () => {
 
     if (isSuccess) {
       toast.error("Ordered Successfully");
-      navigate("/");
+      navigate("/me/orders?order_success=true");
+     
     }
   }, [error,data, isSuccess]);
 
@@ -46,6 +48,7 @@ const PaymentMethod = () => {
 
     if(checkoutSuccess){
       window.location.href=CheckoutData.url;
+      dispatch(clearCart())
     }
   },[CheckoutData ,checkoutSuccess])
 

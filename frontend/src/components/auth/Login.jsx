@@ -26,8 +26,10 @@ const Login = () => {
     }
   }, [error ]);
 
-  if(data && isSuccess){
+  if(isSuccess){
     navigate('/')
+    navigate(0)
+    
     
   }
 

@@ -42,10 +42,14 @@ const initialState ={
       
             localStorage.setItem("shippingInfo", JSON.stringify(state.shippingInfo));
           },
+          clearCart: (state, action) => {
+             localStorage.removeItem('cartItems')
+             state.cartItems=[]
+          },
     }
 })
 
 
 export default cartSlice;
 
-export const {addToCart,removeCartItem,saveShippingInfo} = cartSlice.actions
+export const {addToCart,removeCartItem,saveShippingInfo,clearCart} = cartSlice.actions

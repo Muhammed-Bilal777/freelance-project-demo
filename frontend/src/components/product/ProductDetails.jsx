@@ -12,12 +12,16 @@ import StarRatings from "react-star-ratings";
 import Loader from '../layouts/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/features/cartItems';
+import NewReview from '../review/NewReview';
+import ListReviews from '../review/ListReviews';
 
 const ProductDetails = () => {
   const params = useParams();
 
   const dispatch = useDispatch()
-  const {isAuthenticated,user} = useSelector((state)=>state.auth)
+  const {isAuthenticated} = useSelector((state)=>state.auth)
+  console.log(isAuthenticated);
+  
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(
     params?.id
   );
@@ -177,10 +181,15 @@ const ProductDetails = () => {
         <p id="product_seller mb-3">
           Sold by: <strong>{product?.seller}</strong>
         </p>
-
-        <div className="alert alert-danger my-5" type="alert">
-          Login to post your review.
-        </div>
+           {
+            isAuthenticated ? (<NewReview productId={product?._id}/>) :( <div className="alert alert-danger my-5" type="alert">
+            Login to post your review.
+          </div>)
+           }
+           {
+            product?.reviews?.length> 0 && <ListReviews  reviews = {product?.reviews}/>
+           }
+        
       </div>
     </div>
   );

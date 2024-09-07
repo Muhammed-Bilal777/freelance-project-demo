@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useLazyLogoutQuery } from "../../redux/apis/authApi";
 import { useDispatch } from "react-redux";
 import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
+import { orderApi } from "../../redux/apis/orderApi";
  
 const Header = () => {
 const dispatch =useDispatch()
@@ -44,7 +45,8 @@ const dispatch =useDispatch()
 
   const logoutHandler = async () => {
     await logout();
-     
+    orderApi.util.resetApiState();
+    orderApi.util.invalidateTags(['Orders']);
     navigate('/');
     dispatch(setIsAuthenticated(false))
     dispatch(setUser(null))

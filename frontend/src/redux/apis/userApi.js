@@ -4,7 +4,7 @@ import { setIsAuthenticated, setLoading, setUser } from "../features/userSlice";
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" }),
-  tagTypes : "User",
+  tagTypes : ["User"],
   endpoints: (builder) => ({
     getMe: builder.query({
       query: () => `/me`,
@@ -75,9 +75,14 @@ export const userApi = createApi({
           body,
         };
       },
-    })
+    }),
+    canUserReview: builder.query({
+      query: (productId) => `/can_review/?productId=${productId}`,
+       credentials: 'include'
+       
+    }), 
   }),
   
 });
 
-export const { useGetMeQuery , useUpdateProfileMutation,useUploadAvatarMutation,useUpdatePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation } = userApi;
+export const { useGetMeQuery ,useUpdateProfileMutation,useUploadAvatarMutation,useUpdatePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation,useCanUserReviewQuery } = userApi;

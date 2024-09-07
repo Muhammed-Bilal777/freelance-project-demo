@@ -6,7 +6,25 @@ import cors from "cors"
 import { dbConnect } from "./database/dbConnect.js";
 import cookieParser from "cookie-parser";
 const app =express() ;
-app.use(express.json());
+
+
+
+app.use(
+  express.json({
+    limit: "10mb",
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();
+    },
+  })
+);
+ 
+
+const corsOptions = {
+  origin: 'http://localhost:3000', // or the domain you're making the request from
+  credentials: true, // allow credentials (cookies)
+};
+
+app.use(cors(corsOptions));
 
 //Configuration 
 dotenv.config({
@@ -22,7 +40,7 @@ try {
   }
 
 app.use(cookieParser())
-app.use(cors())
+ 
 
 //Routes
 import productRoutes from "./routes/productRoutes.js"
