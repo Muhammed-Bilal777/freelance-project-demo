@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto"
+import { log } from "console";
 const userSchema = new mongoose.Schema(
     {
       name: {
@@ -55,14 +56,26 @@ userSchema.methods.getJwtToken =function(){
     })
 }
 
-userSchema.methods.getResetToken=function(){
+userSchema.methods.getResetToken=async function(){
 
-  let resetToken = crypto.randomBytes(20).toString('hex')
-   this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
-   this.resetPasswordExpire = Date.now() + 30 * 60 *1000;
+  // let resetToken = crypto.randomBytes(20).toString('hex')
+  //  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+  //  this.resetPasswordExpire = Date.now() + 30 * 60 *1000;
    
-   
-   return resetToken;
+  //  await this.save();
+  // return  resetToken
+
+  try {
+    let resetToken = crypto.randomBytes(20).toString('hex')
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+     
+    
+    return resetToken;
+  } catch (err) {
+    console.error(err);
+    throw new Error('Failed to generate reset token');
+  }
 }
 
 

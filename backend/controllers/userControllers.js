@@ -7,6 +7,7 @@ import { getResetPasswordTemplate } from "../utils/emailTemplates.js";
 import sendEmail from "../utils/senEmail.js";
 import crypto from "crypto"
 import { delete_file, upload_file } from "../utils/cloudinary.js";
+import { log } from "console";
 
 //Registering user ==> /api/v1/register
 export const registerUser=catchAsync(async (req,res,next)=>{
@@ -78,13 +79,14 @@ export const forgotPassword = catchAsync(async(req,res,next)=>{
     }
 
     //get reset password token
-    const resetPasswordToken = user.getResetToken();
-
-    await user.save();
-
+    const resetPasswordToken =await  user.getResetToken();
+     
+   
+    
+   await user.save();
     //get reset password url
 
-    const resetUrl = `${process.env.FRONTEND_URL}/api/v1/password/reset/${resetPasswordToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetPasswordToken}`;
 
     const message =getResetPasswordTemplate(user?.name,resetUrl);
 
@@ -111,14 +113,25 @@ export const forgotPassword = catchAsync(async(req,res,next)=>{
 //Reset password Token ==> /api/v1/password/reset/:token
 
 export const resetPassword = catchAsync(async (req,res,next)=>{
+     
     
     
-    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')  
-
+    crypto.randomBytes(20).toString('hex')
+    // const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')  
+       // Hash the URL Token
+  const resetPasswordToken = crypto
+  .createHash("sha256")
+  .update(req.params.token)
+  .digest("hex");
     let user = await User.findOne({
         resetPasswordToken,
         resetPasswordExpire:{$gt:Date.now()}
     });
+
+    
+
+     
+    
 
     if(!user){
         return next(new sendError("Password reset token is invalid or has been expired",

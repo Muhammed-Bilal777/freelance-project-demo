@@ -28,10 +28,12 @@ app.use(cors())
 import productRoutes from "./routes/productRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import orderRoutes from "./routes/ordersRoutes.js"
+import paymentRoutes from './routes/paymentRoutes.js'
 
 app.use("/api/v1",productRoutes)
 app.use("/api/v1" ,userRoutes)
 app.use('/api/v1',orderRoutes)
+app.use('/api/v1',paymentRoutes)
 
  
 
