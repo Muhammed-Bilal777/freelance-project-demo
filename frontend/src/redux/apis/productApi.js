@@ -3,12 +3,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:"include"}),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:"include",  withCredentials: true,}),
   headers: {
     'Set-Cookie': 'SameSite=None; Secure'
   }
   tagTypes: ["Product", "AdminProducts"],
    credentials: 'include',
+   withCredentials: true,
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (params) => ({
@@ -46,6 +47,8 @@ export const productApi = createApi({
     getAdminProducts: builder.query({
       query: () => `/admin/products`,
       providesTags: ["AdminProducts","Product"],
+       withCredentials: true,
+      credentials: 'include',
     }),
     deleteProduct: builder.mutation({
       query(id) {
