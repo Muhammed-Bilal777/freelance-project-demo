@@ -37,7 +37,7 @@ app.use(
 );
  
 const corsOptions = {
-  origin: 'http://localhost:3000', // or the domain you're making the request from
+  origin: '*', // or the domain you're making the request from
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
   'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
