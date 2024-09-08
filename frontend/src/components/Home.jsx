@@ -40,7 +40,7 @@ const Home = () => {
   //   setSearchParams({});
   // }, []);
   const columnSize = keyword ? 4:3
-   
+  console.log("from home comp")
   useEffect(() => {
     if (isError) {
       toast.error(error?.data?.message);
