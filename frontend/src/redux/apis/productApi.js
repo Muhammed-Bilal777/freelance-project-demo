@@ -25,7 +25,8 @@ export const productApi = createApi({
     getProductDetails: builder.query({
       query: (id) => `/products/${id}`,
        providesTags:["Product","AdminProducts"],
-      invalidatesTags:["Product","AdminProducts"]
+      invalidatesTags:["Product","AdminProducts"],
+         credentials: 'include',
     }),
     submitReview: builder.mutation({
       query(body) {
@@ -36,7 +37,8 @@ export const productApi = createApi({
           credentials: 'include'
         };
       },
-      invalidatesTags:["Product","AdminProducts"]
+      invalidatesTags:["Product","AdminProducts"],
+         credentials: 'include',
     }),
     getAdminProducts: builder.query({
       query: () => `/admin/products`,
@@ -50,6 +52,7 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["AdminProducts"],
+         credentials: 'include',
     }),
     createProduct: builder.mutation({
       query(body) {
@@ -60,6 +63,7 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["AdminProducts"],
+         credentials: 'include',
     }),
     updateProduct: builder.mutation({
       query({ id, body }) {
@@ -70,6 +74,7 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["Product", "AdminProducts"],
+         credentials: 'include',
     }),
     uploadProductImages: builder.mutation({
       query({ id, body }) {
@@ -80,6 +85,7 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["Product","AdminProducts"],
+         credentials: 'include',
     }),
     deleteProductImage: builder.mutation({
       query({ id, body }) {
@@ -90,11 +96,13 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["Product","AdminProducts"],
+         credentials: 'include',
     }),
     getProductReviews: builder.query({
       query: (productId) => `/reviews?id=${productId}`,
       providesTags: ["Reviews"],
-      invalidatesTags:["Product","AdminProducts"]
+      invalidatesTags:["Product","AdminProducts"],
+         credentials: 'include',
     }),
     deleteReview: builder.mutation({
       query({ productId, id }) {
@@ -104,6 +112,7 @@ export const productApi = createApi({
         };
       },
       invalidatesTags: ["Reviews","Product","AdminProducts"],
+         credentials: 'include',
     }),
      
      
