@@ -37,7 +37,7 @@ app.use(
 );
  
 const corsOptions = {
-  origin: 'https://freelance-project-demo.onrender.com', // or the domain you're making the request from
+  origin:  ['http://localhost:3000', 'https://freelance-project-demo.onrender.com']
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
   'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
