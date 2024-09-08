@@ -10,10 +10,19 @@ import { toast } from "react-hot-toast";
  
 import StarRatings from "react-star-ratings";
 import Loader from '../layouts/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/features/cartItems';
+import NewReview from '../review/NewReview';
+import ListReviews from '../review/ListReviews';
+import NotFound from '../layouts/NotFound';
 
 const ProductDetails = () => {
   const params = useParams();
 
+  const dispatch = useDispatch()
+  const {isAuthenticated} = useSelector((state)=>state.auth)
+ 
+  
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(
     params?.id
   );
@@ -21,6 +30,46 @@ const ProductDetails = () => {
  
 
   const [activeImg, setActiveImg] = useState("");
+  const [quantity,setQuantity] = useState(1)
+
+
+  const increseQty = () => {
+    const count = document.querySelector(".count");
+
+    if (count.valueAsNumber >= product?.stock) return;
+
+    const qty = count.valueAsNumber + 1;
+    setQuantity(qty);
+  };
+
+  const decreseQty = () => {
+    const count = document.querySelector(".count");
+
+    if (count.valueAsNumber <= 1) return;
+
+    const qty = count.valueAsNumber - 1;
+    setQuantity(qty);
+  };
+
+
+
+  const HandleAddTocart = ()=>{
+    const cartItems ={  
+      product: product?._id,
+      name: product?.name,
+      price: product?.price,
+      image: product?.images[0]?.url,
+      stock: product?.stock,
+      quantity,
+    
+  };
+
+      
+    dispatch(addToCart(cartItems))
+    toast.success("Item added successfully")
+  }
+
+
 
   useEffect(() => {
     setActiveImg(
@@ -30,14 +79,14 @@ const ProductDetails = () => {
     );
   }, [product]);
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(error?.data?.message);
-    }
-  }, [isError,error?.data?.message]);
 
+
+ 
   if (isLoading) return <Loader />;
-
+  if (isError && error?.status == '404') {
+    toast.error("There are not products found");
+    return <NotFound />
+  }
   return (
     <div className="row d-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">
@@ -51,8 +100,8 @@ const ProductDetails = () => {
           />
         </div>
         <div className="row justify-content-start mt-5">
-          {product?.images?.map((img) => (
-            <div className="col-2 ms-4 mt-2">
+          {product?.images?.map((img,index) => (
+            <div key={index} className="col-2 ms-4 mt-2">
               <a role="button">
                 <img
                   className={`d-block border rounded p-3 cursor-pointer ${
@@ -94,20 +143,21 @@ const ProductDetails = () => {
 
         <p id="product_price">${product?.price}</p>
         <div className="stockCounter d-inline">
-          <span className="btn btn-danger minus">-</span>
+          <span className="btn btn-danger minus" onClick={decreseQty}>-</span>
           <input
             type="number"
             className="form-control count d-inline"
-            value="1"
-            readonly
+            value={quantity}
+            readOnly
           />
-          <span className="btn btn-primary plus">+</span>
+          <span className="btn btn-primary plus" onClick={increseQty}>+</span>
         </div>
         <button
           type="button"
           id="cart_btn"
           className="btn btn-primary d-inline ms-4"
-          disabled=""
+          disabled={product?.stock <= 0}
+          onClick={HandleAddTocart}
         >
           Add to Cart
         </button>
@@ -132,10 +182,15 @@ const ProductDetails = () => {
         <p id="product_seller mb-3">
           Sold by: <strong>{product?.seller}</strong>
         </p>
-
-        <div className="alert alert-danger my-5" type="alert">
-          Login to post your review.
-        </div>
+           {
+            isAuthenticated ? (<NewReview productId={product?._id}/>) :( <div className="alert alert-danger my-5" type="alert">
+            Login to post your review.
+          </div>)
+           }
+           {
+            product?.reviews?.length> 0 && <ListReviews  reviews = {product?.reviews}/>
+           }
+        
       </div>
     </div>
   );

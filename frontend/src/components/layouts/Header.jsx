@@ -1,8 +1,62 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 
 import Search from "./Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useGetMeQuery     } from "../../redux/apis/userApi";
+import { useSelector } from "react-redux";
+import { useLazyLogoutQuery } from "../../redux/apis/authApi";
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
+import { orderApi } from "../../redux/apis/orderApi";
+ 
 const Header = () => {
+const dispatch =useDispatch()
+  const navigate = useNavigate();
+ 
+
+  const {cartItems} = useSelector((state) => state.cart)
+   const {isAuthenticated} = useSelector((state)=>state.auth)
+
+
+
+  const { user } = useSelector((state) => state.auth);
+
+  const { data, isLoading,isFetching ,error ,refetch,isSuccess} = useGetMeQuery(undefined, {
+     
+    
+  });
+ 
+  
+ 
+
+  const [logout ,{}] = useLazyLogoutQuery();
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+  const logoutHandler = async () => {
+    await logout();
+    orderApi.util.resetApiState();
+    orderApi.util.invalidateTags(['Orders']);
+    navigate('/');
+    dispatch(setIsAuthenticated(false))
+    dispatch(setUser(null))
+    
+
+  };
+
+ 
+   
+
   return (
     <nav className="navbar row">
       <div className="col-12 col-md-3 ps-5">
@@ -17,17 +71,18 @@ const Header = () => {
         <Search />
       </div>
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <a href="/cart" style={{ textDecoration: "none" }}>
+        <Link to="/cart" style={{ textDecoration: "none" }}>
           <span id="cart" className="ms-3">
             {" "}
             Cart{" "}
           </span>
           <span className="ms-1" id="cart_count">
-            0
+            {isAuthenticated ? cartItems.length : 0}
           </span>
-        </a>
-
-        <div className="ms-4 dropdown">
+        </Link>
+  {
+    user ? (
+      <div className="ms-4 dropdown">
           <button
             className="btn dropdown-toggle text-white"
             type="button"
@@ -37,43 +92,54 @@ const Header = () => {
           >
             <figure className="avatar avatar-nav">
               <img
-                src="../images/default_avatar.jpg"
+                src={user.avatar ? user?.avatar?.url : "/images/default_avatar.jpg"}
                 alt="User Avatar"
                 className="rounded-circle"
               />
             </figure>
-            <span>User</span>
+            <span>{user.name}</span>
           </button>
           <div
             className="dropdown-menu w-100"
             aria-labelledby="dropDownMenuButton"
           >
-            <a className="dropdown-item" href="/admin/dashboard">
-              {" "}
-              Dashboard{" "}
-            </a>
 
-            <a className="dropdown-item" href="/me/orders">
+            {
+              user.role === 'admin' && ( <Link className="dropdown-item" to="/admin/dashboard">
+                {" "}
+                Dashboard{" "}
+              </Link>)
+            }
+           
+
+            <Link className="dropdown-item" to="/me/orders">
               {" "}
               Orders{" "}
-            </a>
+            </Link>
 
-            <a className="dropdown-item" href="/me/profile">
+            <Link className="dropdown-item" to="/me/profile">
               {" "}
               Profile{" "}
-            </a>
+            </Link>
 
-            <a className="dropdown-item text-danger" href="/">
+            <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
               {" "}
               Logout{" "}
-            </a>
+            </Link>
           </div>
         </div>
+    ):(
+   
+      !isLoading && ( <Link to="/login" className="btn ms-4" id="login_btn">
+        {" "}
+        Login{" "}
+      </Link>)
+  
+    )
+  }
+        
 
-        <a href="/login" className="btn ms-4" id="login_btn">
-          {" "}
-          Login{" "}
-        </a>
+        
       </div>
     </nav>
   );
