@@ -4,6 +4,9 @@ export const productApi = createApi({
   reducerPath: "productApi",
   
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:"include"}),
+  headers: {
+    'Set-Cookie': 'SameSite=None; Secure'
+  }
   tagTypes: ["Product", "AdminProducts"],
    credentials: 'include',
   endpoints: (builder) => ({
