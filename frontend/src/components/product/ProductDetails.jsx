@@ -14,13 +14,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/features/cartItems';
 import NewReview from '../review/NewReview';
 import ListReviews from '../review/ListReviews';
+import NotFound from '../layouts/NotFound';
 
 const ProductDetails = () => {
   const params = useParams();
 
   const dispatch = useDispatch()
   const {isAuthenticated} = useSelector((state)=>state.auth)
-  console.log(isAuthenticated);
+ 
   
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(
     params?.id
@@ -78,14 +79,14 @@ const ProductDetails = () => {
     );
   }, [product]);
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(error?.data?.message);
-    }
-  }, [isError,error?.data?.message]);
 
+
+ 
   if (isLoading) return <Loader />;
-
+  if (isError && error?.status == '404') {
+    toast.error("There are not products found");
+    return <NotFound />
+  }
   return (
     <div className="row d-flex justify-content-around">
       <div className="col-12 col-lg-5 img-fluid" id="product_image">

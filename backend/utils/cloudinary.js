@@ -9,7 +9,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const upload_file = (file, folder) => {
+export const upload_file = (file, folder  ) => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
       file,
@@ -22,6 +22,7 @@ export const upload_file = (file, folder) => {
       {
         resource_type: "auto",
         folder,
+         
       }
     );
   });

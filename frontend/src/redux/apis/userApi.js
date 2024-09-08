@@ -80,9 +80,45 @@ export const userApi = createApi({
       query: (productId) => `/can_review/?productId=${productId}`,
        credentials: 'include'
        
+    }),
+    getAdminUsers: builder.query({
+      query: () => `/admin/users`,
+      providesTags: ["AdminUsers"],
+      invalidatesTags: ["AdminUsers"],
+    }),
+    getUserDetails: builder.query({
+      query: (id) => `/admin/users/${id}`,
+      invalidatesTags: ["AdminUsers"],
+      providesTags: ["AdminUsers"],
+    }),
+    updateUser: builder.mutation({
+      query({ id, body }) {
+        return {
+          url: `/admin/users/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["AdminUsers"],
+    }),
+    deleteUser: builder.mutation({
+      query(id) {
+        return {
+          url: `/admin/users/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["AdminUsers"],
     }), 
+     
   }),
   
 });
 
-export const { useGetMeQuery ,useUpdateProfileMutation,useUploadAvatarMutation,useUpdatePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation,useCanUserReviewQuery } = userApi;
+export const { useGetMeQuery ,useUpdateProfileMutation,
+  useUploadAvatarMutation,useUpdatePasswordMutation,
+  useForgotPasswordMutation,useResetPasswordMutation,useCanUserReviewQuery,
+  useGetAdminUsersQuery,
+  useGetUserDetailsQuery,
+  useUpdateUserMutation,
+  useDeleteUserMutation,  } = userApi;

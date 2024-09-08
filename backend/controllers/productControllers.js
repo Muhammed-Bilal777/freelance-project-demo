@@ -3,6 +3,7 @@ import Product from "../models/productModel.js"
 import APIFilters from "../utils/filter.js";
 import sendError from "../utils/sendError.js";
 import Order from "../models/orderModel.js"
+import { delete_file, upload_file } from "../utils/cloudinary.js";
 
 
 //Get All Products  /api/v1/products
@@ -66,6 +67,65 @@ export const CreateProduct= catchAsync(async (req,res,next)=>{
 })
 
 
+// Upload product images   =>  /api/v1/admin/products/:id/upload_images
+export const uploadProductImages = catchAsync (async (req, res) => {
+   let product = await Product.findById(req?.params?.id);
+ 
+   if (!product) {
+     return next(new ErrorHandler("Product not found", 404));
+   }
+    
+   const uploader = async (image) => upload_file(image, "seasonstar/products"  );
+ 
+   const urls = await Promise.all((req?.body?.images).map(uploader));
+ 
+   product?.images?.push(...urls);
+   await product?.save();
+ 
+   res.status(200).json({
+     product,
+   });
+ });
+
+
+
+ // Delete product image   =>  /api/v1/admin/products/:id/delete_image
+export const deleteProductImage = catchAsync(async (req, res) => {
+   let product = await Product.findById(req?.params?.id);
+ 
+   if (!product) {
+     return next(new ErrorHandler("Product not found", 404));
+   }
+ 
+   const isDeleted = await delete_file(req.body.imgId);
+ 
+   if (isDeleted) {
+     product.images = product?.images?.filter(
+       (img) => img.public_id !== req.body.imgId
+     );
+ 
+     await product?.save();
+   }
+ 
+   res.status(200).json({
+     product,
+   });
+ });
+
+
+//Get All Products
+export const getAdminProducts= catchAsync(async (req,res,next)=>{
+   
+   
+   let products = await Product.find ()
+    
+  
+
+  res.status(200).json({
+   products
+  })
+})
+
 //Updating Product  /api/v1/products/:id
 export const updatingProduct= catchAsync(async (req,res,next)=>{
      const {id}=req.params;
@@ -91,6 +151,15 @@ export const deleteProduct=catchAsync(async (req,res,next)=>{
    if(!product){
       return next(new sendError("Product not found", 401));
    }
+
+
+    // Deleting image associated with product
+  for (let i = 0; i < product?.images?.length; i++) {
+    await delete_file(product?.images[i].public_id);
+  }
+
+
+
    product= await Product.findByIdAndDelete(req.params?.id)
    res.status(200).send({
       message : "Product deleted Successfully",
@@ -149,7 +218,7 @@ export const createAndUpdateReviews = catchAsync(async(req,res,next)=>{
 export const getProductReview =catchAsync(async(req,res,next)=>{
    
     
-   const product = await Product.findById(req.query.id)
+   const product = await Product.findById(req.query.id).populate('reviews.user')
    if(!product){
        return next(new sendError("cannot find product",402));
 

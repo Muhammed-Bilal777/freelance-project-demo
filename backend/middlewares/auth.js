@@ -10,7 +10,7 @@ import sendError from "../utils/sendError.js";
 export const isAuthenticatedUser = catchAsync(async(req,res,next)=>{
    
     const {token} =req.cookies;
-  console.log(token);
+   
   
     
     

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
  
 import toast from "react-hot-toast";
- 
+import { useNavigate } from "react-router-dom";
  
 import { useRegisterMutation } from "../../redux/apis/authApi";
+import { useSelector } from "react-redux";
+import { setIsAuthenticated } from "../../redux/features/userSlice";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -12,20 +14,36 @@ const Register = () => {
     password: "",
   });
 
+
+  const navigate= useNavigate()
   const { name, email, password } = user;
 
   
 
-  const [register, { isLoading, error, data }] = useRegisterMutation();
+  const [register, { isLoading, error, data,isSuccess }] = useRegisterMutation();
+
+   
+   
 
  
-
+   
   useEffect(() => {
+
+
+   
+    if (isSuccess) {
+      toast.success("Successfully Registered");
+      navigate('/')
+      navigate(0);
      
+    }
     if (error) {
       toast.error(error?.data?.message);
     }
-  }, [error ]);
+  }, [error ,isSuccess,data]);
+
+
+ 
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -37,6 +55,7 @@ const Register = () => {
     };
     
     register(signUpData);
+
   };
  
 

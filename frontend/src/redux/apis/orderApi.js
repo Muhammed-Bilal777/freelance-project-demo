@@ -13,7 +13,7 @@ export const orderApi = createApi({
           body,
         };
       },
-      providesTags:['Orders']
+      providesTags:['Orders','AdminOrders']
     }),
     stripeCheckoutSession: builder.mutation({
       query(body) {
@@ -26,7 +26,7 @@ export const orderApi = createApi({
     }),
     myOrders: builder.query({
       query: () => `/me/orders`,
-      invalidatesTags:['Orders']
+      invalidatesTags:['Orders' ,'AdminOrders']
     }),
     orderDetails: builder.query({
       query: (id) => ({
@@ -35,7 +35,35 @@ export const orderApi = createApi({
          
       }),
     }),
+    getDashboardSales: builder.query({
+      query: ({ startDate, endDate }) =>
+        `/admin/get_sales/?startDate=${startDate}&endDate=${endDate}`,
+    }),
+    getAdminOrders: builder.query({
+      query: () => `/admin/orders`,
+      providesTags: ["AdminOrders"],
+    }),
+    deleteOrder: builder.mutation({
+      query(id) {
+        return {
+          url: `/admin/orders/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["AdminOrders","Order"],
+
+    }),
+    updateOrder: builder.mutation({
+      query({ id, body }) {
+        return {
+          url: `/admin/orders/${id}`,
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["Order","AdminOrders"],
+    }),
   }),
 });
 
-export const { useCreateNewOrderMutation ,useStripeCheckoutSessionMutation, useMyOrdersQuery ,useOrderDetailsQuery} = orderApi;
+export const { useCreateNewOrderMutation,useUpdateOrderMutation,useDeleteOrderMutation,useGetAdminOrdersQuery ,useStripeCheckoutSessionMutation, useMyOrdersQuery ,useOrderDetailsQuery , useLazyGetDashboardSalesQuery} = orderApi;

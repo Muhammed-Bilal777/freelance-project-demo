@@ -204,7 +204,7 @@ export const updateUserProfile=catchAsync(async(req,res,next)=>{
 
 // Upload user avatar   =>  /api/v1/me/upload_avatar
 export const uploadAvatar = catchAsync(async (req, res, next) => {
-    const avatarResponse = await upload_file(req.body.avatar, "seasonstar/avatar");
+    const avatarResponse = await upload_file(req.body.avatar, "seasonstar/avatar" );
   
     // Remove previous avatar
     if (req?.user?.avatar?.url) {
@@ -259,6 +259,12 @@ export const deleteUser=catchAsync(async(req,res,next)=>{
     if(!user){
         return next(new sendError(`User not found with this ID : ${req?.params?.id}`))
     }
+
+    // Remove user avatar from cloudinary
+  if (user?.avatar?.public_id) {
+    await delete_file(user?.avatar?.public_id);
+  }
+
    
    res.status(200).send({
     message:"User Deleted Successfully"
