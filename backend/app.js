@@ -35,9 +35,19 @@ app.use(
     },
   })
 );
+
+
+ const allowedOrigins = ['http://localhost:3000', 'https://freelance-project-demo.onrender.com'];
+
  
 const corsOptions = {
-  origin:  ['http://localhost:3000', 'https://freelance-project-demo.onrender.com']
+   origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin)) {
+      callback(null, origin);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+   }
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
   'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
