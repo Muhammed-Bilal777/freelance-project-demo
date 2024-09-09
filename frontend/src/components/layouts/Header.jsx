@@ -21,32 +21,17 @@ const dispatch =useDispatch()
 
   const { user } = useSelector((state) => state.auth);
 
-  const { data, isLoading,isFetching ,error ,refetch,isSuccess} = useGetMeQuery(undefined, {
-     
-    
-  });
+  const { data, isLoading,isFetching ,error ,refetch,isSuccess} = useGetMeQuery()
  
   
  
 
   const [logout ,{}] = useLazyLogoutQuery();
  
-
-
-
-
-
-
-
-
-
-
-
-
-  const logoutHandler = async () => {
-    await logout();
-    orderApi.util.resetApiState();
-    orderApi.util.invalidateTags(['Orders']);
+  const logoutHandler = () => {
+     logout();
+    // orderApi.util.resetApiState();
+    // orderApi.util.invalidateTags(['Orders']);
     navigate('/');
     dispatch(setIsAuthenticated(false))
     dispatch(setUser(null))

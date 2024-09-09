@@ -32,7 +32,7 @@ const Search = () => {
               
             />
             <button id="search_btn" className="btn" type="submit">
-          <i className="fa fa-search" aria-hidden="true"><BiSearchAlt size={20} color="#000"/></i>
+          <i ><BiSearchAlt size={20} color="#000"/></i>
         </button>
           </div>
         </form>

@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [startDate, setStartDate] = useState(new Date().setDate(1));
   const [endDate, setEndDate] = useState(new Date());
 
-  const [getDashboardSales, { error, isLoading, data }] =
+  const [getDashboardSales, { error, isLoading, data ,isSuccess}] =
     useLazyGetDashboardSalesQuery();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
         endDate: endDate.toISOString(),
       });
     }
-  }, [error]);
+  }, [error,data,isSuccess]);
 
   const submitHandler = () => {
     getDashboardSales({
