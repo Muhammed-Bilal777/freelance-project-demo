@@ -11,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
    
   const navigate = useNavigate();
-  const { refetch } = useGetMeQuery();
+  // const { refetch } = useGetMeQuery();
   const [login, { isLoading, error, data, isSuccess,  }] = useLoginMutation({
     refetch: true, // Refetch user data after successful login
   });
@@ -31,11 +31,11 @@ const Login = () => {
 
 
 
-  useEffect(() => {
-    if (isSuccess) {
-      refetch(); // Refetch the getMe query when the user logs in for the second time
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     refetch(); // Refetch the getMe query when the user logs in for the second time
+  //   }
+  // }, [data]);
 
   
   

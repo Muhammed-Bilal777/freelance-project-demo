@@ -48,8 +48,8 @@ const dispatch =useDispatch()
     orderApi.util.invalidateTags(['Orders']);
     navigate('/');
     navigate(0)
-    dispatch(setIsAuthenticated(false))
-    dispatch(setUser(null))
+    // dispatch(setIsAuthenticated(false))
+    // dispatch(setUser(null))
     
 
   };

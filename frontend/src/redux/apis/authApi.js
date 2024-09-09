@@ -6,7 +6,7 @@ import { setIsAuthenticated, setUser } from "../features/userSlice";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:'include',
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:'include',
     
    }),
   endpoints: (builder) => ({
@@ -42,16 +42,16 @@ export const authApi = createApi({
     logout: builder.query({
       query: () => "/logout",
       
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          await queryFulfilled;
-          await dispatch(userApi.endpoints.getMe.initiate(null));
-          setIsAuthenticated(false)
-           setUser(null)
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      // async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      //   try {
+      //     await queryFulfilled;
+      //     await dispatch(userApi.endpoints.getMe.initiate(null));
+      //     setIsAuthenticated(false)
+      //      setUser(null)
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // },
        
      
     }),
