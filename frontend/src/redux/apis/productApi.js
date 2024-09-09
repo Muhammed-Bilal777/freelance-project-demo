@@ -3,13 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:"include" , withCredentials: true,
-    headers: {
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        
-    }
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:"include" 
   } ),
   tagTypes: ["Product", "AdminProducts"],
   mode: "cors",
@@ -19,8 +13,7 @@ headers: {
 prepareHeaders: (headers) => {
 return headers;
 },
-  withCredentials: true,
-   credentials: 'include',
+   
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (params) => ({
@@ -41,7 +34,7 @@ return headers;
       query: (id) => `/products/${id}`,
        providesTags:["Product","AdminProducts"],
       invalidatesTags:["Product","AdminProducts"],
-      credentials: 'include',
+       
     }),
     submitReview: builder.mutation({
       query(body) {
@@ -49,17 +42,16 @@ return headers;
           url: "/reviews",
           method: "PUT",
           body,
-          credentials: 'include'
+          
         };
       },
       invalidatesTags:["Product","AdminProducts"],
-      credentials: 'include',
+       
     }),
     getAdminProducts: builder.query({
       query: () => `/admin/products`,
       providesTags: ["AdminProducts","Product"],
-      credentials: 'include',
-      withCredentials: true,
+      
     }),
     deleteProduct: builder.mutation({
       query(id) {
@@ -69,8 +61,7 @@ return headers;
         };
       },
       invalidatesTags: ["AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
     createProduct: builder.mutation({
       query(body) {
@@ -81,8 +72,7 @@ return headers;
         };
       },
       invalidatesTags: ["AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
     updateProduct: builder.mutation({
       query({ id, body }) {
@@ -93,8 +83,7 @@ return headers;
         };
       },
       invalidatesTags: ["Product", "AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
     uploadProductImages: builder.mutation({
       query({ id, body }) {
@@ -105,8 +94,7 @@ return headers;
         };
       },
       invalidatesTags: ["Product","AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
     deleteProductImage: builder.mutation({
       query({ id, body }) {
@@ -117,15 +105,13 @@ return headers;
         };
       },
       invalidatesTags: ["Product","AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
     getProductReviews: builder.query({
       query: (productId) => `/reviews?id=${productId}`,
       providesTags: ["Reviews"],
       invalidatesTags:["Product","AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+      
     }),
     deleteReview: builder.mutation({
       query({ productId, id }) {
@@ -135,8 +121,7 @@ return headers;
         };
       },
       invalidatesTags: ["Reviews","Product","AdminProducts"],
-      credentials: 'include',
-      withCredentials: true,
+       
     }),
      
      

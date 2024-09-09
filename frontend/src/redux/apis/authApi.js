@@ -6,12 +6,7 @@ import { userApi } from "./userApi";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:'include',
-    headers: {
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        
-    }
+    
    }),
   endpoints: (builder) => ({
     register: builder.mutation({
@@ -22,7 +17,7 @@ export const authApi = createApi({
           body,
         };
       },
-      credentials:'include'
+      
        
     }),
     login: builder.mutation({
@@ -33,7 +28,7 @@ export const authApi = createApi({
           body,
         };
       },
-      credentials:'include',
+      
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -45,7 +40,7 @@ export const authApi = createApi({
     }),
     logout: builder.query({
       query: () => "/logout",
-      credentials:'include',
+      
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;

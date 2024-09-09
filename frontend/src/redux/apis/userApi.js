@@ -5,12 +5,7 @@ export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1", credentials:'include',
 
-    headers: {
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        
-    }
+    
   }),
   tagTypes : ["User"],
   endpoints: (builder) => ({
@@ -30,10 +25,7 @@ export const userApi = createApi({
       },
       providesTags:['User'],
       
-      // selectId: (args, api, userId) => userId,
-      // keepUnusedDataFor: 0,
-      // refetchOnMount: true,
-      // refetch: true, 
+      
     }),
     updateProfile : builder.mutation({
       query(body){
