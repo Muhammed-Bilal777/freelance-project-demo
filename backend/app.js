@@ -56,7 +56,7 @@ const corsOptions = {
   credentials: true,
   sameSite: 'none', // add this line
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
-    'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+    'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization' ,'Access-Control-Allow-Methods'],
 }
 
 app.use(cors(corsOptions));
