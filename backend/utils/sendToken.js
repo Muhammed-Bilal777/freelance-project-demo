@@ -7,7 +7,10 @@ export default (user,statusCode,res,message)=>{
             Date.now() + process.env.COOKIE_EXPIRE_IN * 24 * 60 * 60 *1000
         )
         ,
-        httpOnly:true,
+        httpOnly: true,
+  secure: true,
+  sameSite: 'None',
+  domain: 'https://freelance-project-demo.onrender.com',
 
     }
 
