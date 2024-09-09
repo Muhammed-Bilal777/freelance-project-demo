@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {  useResetPasswordMutation } from "../../redux/apis/userApi";
  
 import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
-import {   useLogoutQuery } from "../../redux/apis/authApi";
+import { useLazyLogoutQuery } from "../../redux/apis/authApi";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -16,7 +16,7 @@ const ResetPassword = () => {
   const params = useParams();
  const dispatch= useDispatch()
   const [resetPassword, { isLoading, error, isSuccess }] = useResetPasswordMutation();
-  const [logout ,{}] = useLogoutQuery();
+  const [logout ,{}] = useLazyLogoutQuery();
   
   useEffect(() => {
     

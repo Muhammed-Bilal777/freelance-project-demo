@@ -2,13 +2,13 @@ import React, { useCallback, useEffect } from "react";
 
 import Search from "./Search";
 import { Link, useNavigate } from "react-router-dom";
- 
+import { useGetMeQuery     } from "../../redux/apis/userApi";
 import { useSelector } from "react-redux";
-import {   useLogoutQuery } from "../../redux/apis/authApi";
+import { useLazyLogoutQuery } from "../../redux/apis/authApi";
 import { useDispatch } from "react-redux";
 import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
+import { orderApi } from "../../redux/apis/orderApi";
 import toast from "react-hot-toast";
- 
  
 const Header = () => {
 const dispatch =useDispatch()
@@ -16,20 +16,36 @@ const dispatch =useDispatch()
  
 
   const {cartItems} = useSelector((state) => state.cart)
-   const {isAuthenticated,user} = useSelector((state)=>state.auth)
+   const {isAuthenticated} = useSelector((state)=>state.auth)
 
-  
 
+
+  const { user } = useSelector((state) => state.auth);
+
+  const { refetch,} = useGetMeQuery()
  
- const [logout ,{data,isLoading} ]= useLogoutQuery
   
-  if(data){
-    toast.success("logged Out successfully")
-  }
+ 
+
+  const [logout ,{isSuccess,error, isLoading}] = useLazyLogoutQuery();
+ 
+
+   useEffect(()=>{
+
+    if(error){
+      toast.error(error)
+    }
+       if(isSuccess){
+        toast.success("Logged Out")
+       }
+       
+   },[isSuccess,])
+
   const logoutHandler = () => {
      logout();
-    // orderApi.util.resetApiState();
-    // orderApi.util.invalidateTags(['Orders']);
+     refetch()
+    orderApi.util.resetApiState();
+    orderApi.util.invalidateTags(['Orders']);
     navigate('/');
     dispatch(setIsAuthenticated(false))
     dispatch(setUser(null))
