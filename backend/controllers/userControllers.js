@@ -58,6 +58,10 @@ export const userLogin = catchAsync(async (req,res,next)=>{
 export const userLogout=catchAsync(async(req,res,next)=>{
 
     res.clearCookie('token', { httpOnly: true });
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+      });
     res.status(200).send({
         message : "Successfully Loged Out"
     })
