@@ -36,29 +36,23 @@ app.use(
   })
 );
  
-const allowedOrigins = ['http://localhost:3000', 'https://freelance-project-demo.onrender.com'];
+// const allowedOrigins = ['http://localhost:3000', 'https://freelance-project-demo.onrender.com'];
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
-      callback(null, origin);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: 'http://localhost:3000', // or '*' to allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+  credentials: true,
+  sameSite: 'none', // add this line
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
-  'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
-  credentials: true
+    'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
 }
- 
 
-app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
 
 //Configuration 
 if(process.env.NODE_ENV !== "PRODUCTION"){
@@ -75,7 +69,7 @@ try {
     console.error("Error connecting to database:", error);
     process.exit(1);
   }
-
+  app.use(cors(corsOptions));
 app.use(cookieParser())
  
 

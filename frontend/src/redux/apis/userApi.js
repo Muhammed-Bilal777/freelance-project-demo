@@ -3,7 +3,7 @@ import { setIsAuthenticated, setLoading, setUser } from "../features/userSlice";
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" }),
   tagTypes : ["User"],
   endpoints: (builder) => ({
     getMe: builder.query({
@@ -21,11 +21,11 @@ export const userApi = createApi({
         }
       },
       providesTags:['User'],
-      invalidatesTags:['User'],
-      selectId: (args, api, userId) => userId,
-      keepUnusedDataFor: 0,
-      refetchOnMount: true,
-      refetch: true, 
+      
+      // selectId: (args, api, userId) => userId,
+      // keepUnusedDataFor: 0,
+      // refetchOnMount: true,
+      // refetch: true, 
     }),
     updateProfile : builder.mutation({
       query(body){

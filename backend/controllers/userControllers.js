@@ -7,7 +7,7 @@ import { getResetPasswordTemplate } from "../utils/emailTemplates.js";
 import sendEmail from "../utils/senEmail.js";
 import crypto from "crypto"
 import { delete_file, upload_file } from "../utils/cloudinary.js";
-import { log } from "console";
+
 
 //Registering user ==> /api/v1/register
 export const registerUser=catchAsync(async (req,res,next)=>{
@@ -26,7 +26,8 @@ export const registerUser=catchAsync(async (req,res,next)=>{
     
     
 
-
+  console.log("Registering");
+  
     sendToken(user,200,res,"Successfully Registered")
 })
 
@@ -49,6 +50,8 @@ export const userLogin = catchAsync(async (req,res,next)=>{
    if(!checkingPass){
     return next(new sendError("email or password is incorrect",401))
    }
+
+   console.log("Logging in");
    sendToken(user,200,res,"Successfully Loged In")
 })
 

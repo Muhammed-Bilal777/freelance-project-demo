@@ -98,12 +98,12 @@ export const updateOrder =catchAsync(async(req,res,next)=>{
 
 export const updateOrderDetails =catchAsync(async (req,res,next)=>{
 
-    let order = await Order.findById(req?.params?.id);
-    if(!order){
+    let orderItems = await Order.findById(req?.params?.id);
+    if(!orderItems){
         return next(new sendError("order not found with id",403))
     }
 
-    if (order?.orderStatus === "Delivered") {
+    if (orderItems?.orderStatus === "Delivered") {
         return next(new sendError("You have already delivered this order", 400));
       }
 

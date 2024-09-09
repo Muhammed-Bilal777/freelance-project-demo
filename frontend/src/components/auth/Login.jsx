@@ -12,9 +12,12 @@ const Login = () => {
    
   const navigate = useNavigate();
   const { refetch } = useGetMeQuery();
-  const [login, { isLoading, error, data, isSuccess, reset,  }] = useLoginMutation({
+  const [login, { isLoading, error, data, isSuccess,  }] = useLoginMutation({
     refetch: true, // Refetch user data after successful login
   });
+
+  console.log(data);
+  
 
   useEffect(() => {
      
@@ -24,14 +27,15 @@ const Login = () => {
     }else if(isSuccess){
       toast.success(data?.message)
     }
-  }, [error ]);
 
-  if(isSuccess){
-    navigate('/')
-    navigate(0)
-    
-    
-  }
+    if(isSuccess){
+      navigate('/')
+      
+      
+    }
+  }, [error,isSuccess ]);
+
+
 
   useEffect(() => {
     if (isSuccess) {
