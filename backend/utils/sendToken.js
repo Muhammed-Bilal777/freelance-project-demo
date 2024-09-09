@@ -13,7 +13,7 @@ export default  (user,statusCode,res,message)=>{
         secure: true,
         sameSite: 'none',
         path: '/',
-      domain: 'localhost:3000' || 'localhost',
+      domain: 'localhost:3000' || 'https://freelance-project-demo-2.onrender.com/',
 
     }
 
