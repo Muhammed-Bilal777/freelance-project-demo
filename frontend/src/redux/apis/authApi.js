@@ -5,7 +5,7 @@ import { userApi } from "./userApi";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1"  }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:'include' }),
   endpoints: (builder) => ({
     register: builder.mutation({
       query(body) {
@@ -15,6 +15,7 @@ export const authApi = createApi({
           body,
         };
       },
+      credentials:'include'
        
     }),
     login: builder.mutation({
@@ -25,6 +26,7 @@ export const authApi = createApi({
           body,
         };
       },
+      credentials:'include',
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -36,6 +38,7 @@ export const authApi = createApi({
     }),
     logout: builder.query({
       query: () => "/logout",
+      credentials:'include',
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
