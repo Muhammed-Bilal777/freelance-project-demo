@@ -54,7 +54,7 @@ const corsOptions = {
   origin: 'https://freelance-project-demo-2.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   credentials: true,
-  sameSite: 'none', // add this line
+  sameSite: 'strict', // add this line
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
     'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization' ,'Access-Control-Allow-Methods'],
 }
