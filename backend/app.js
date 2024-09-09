@@ -42,8 +42,8 @@ const corsOptions = {
    
   origin: 'https://freelance-project-demo-2.onrender.com',
   // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-  credentials: true,
-  accessControlAllowCredentials: true,
+  // credentials: true,
+  // accessControlAllowCredentials: true,
   // sameSite: 'strict', // add this line
   // allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 
   //   'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization' ,'Access-Control-Allow-Methods'],
@@ -51,10 +51,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(cookieParser())
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
  
 
 // app.use((req, res, next) => {
