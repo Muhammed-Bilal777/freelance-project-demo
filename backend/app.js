@@ -40,7 +40,8 @@ app.use(
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (origin === 'http://localhost:3000' || origin === 'https://freelance-project-demo.onrender.com') {
+    if (origin === 'http://localhost:3000' || origin === 'https://freelance-project-demo-2.onrender.com' || origin === "http://localhost:4040"
+) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
