@@ -30,6 +30,7 @@ const Login = () => {
 
     if(isSuccess){
       navigate('/')
+      navigate(0)
       
       
     }
