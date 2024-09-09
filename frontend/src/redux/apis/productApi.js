@@ -3,8 +3,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:"include"}),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:"include" , withCredentials: true,} ),
   tagTypes: ["Product", "AdminProducts"],
+  mode: "cors",
+headers: {
+"Content-Type": "application/json",
+},
+prepareHeaders: (headers) => {
+return headers;
+},
+  withCredentials: true,
    credentials: 'include',
   endpoints: (builder) => ({
     getProducts: builder.query({
@@ -44,6 +52,7 @@ export const productApi = createApi({
       query: () => `/admin/products`,
       providesTags: ["AdminProducts","Product"],
       credentials: 'include',
+      withCredentials: true,
     }),
     deleteProduct: builder.mutation({
       query(id) {
@@ -54,6 +63,7 @@ export const productApi = createApi({
       },
       invalidatesTags: ["AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     createProduct: builder.mutation({
       query(body) {
@@ -65,6 +75,7 @@ export const productApi = createApi({
       },
       invalidatesTags: ["AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     updateProduct: builder.mutation({
       query({ id, body }) {
@@ -76,6 +87,7 @@ export const productApi = createApi({
       },
       invalidatesTags: ["Product", "AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     uploadProductImages: builder.mutation({
       query({ id, body }) {
@@ -87,6 +99,7 @@ export const productApi = createApi({
       },
       invalidatesTags: ["Product","AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     deleteProductImage: builder.mutation({
       query({ id, body }) {
@@ -98,12 +111,14 @@ export const productApi = createApi({
       },
       invalidatesTags: ["Product","AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     getProductReviews: builder.query({
       query: (productId) => `/reviews?id=${productId}`,
       providesTags: ["Reviews"],
       invalidatesTags:["Product","AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
     deleteReview: builder.mutation({
       query({ productId, id }) {
@@ -114,6 +129,7 @@ export const productApi = createApi({
       },
       invalidatesTags: ["Reviews","Product","AdminProducts"],
       credentials: 'include',
+      withCredentials: true,
     }),
      
      
