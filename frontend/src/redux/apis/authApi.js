@@ -8,7 +8,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" ,credentials:'include',
     headers: {
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+       
         'Accept': 'application/json',
         'Content-Type': 'application/json',
          'Access-Control-Allow-Credentials': 'true'
