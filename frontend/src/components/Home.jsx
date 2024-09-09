@@ -10,6 +10,8 @@ import { useSearchParams } from "react-router-dom";
 import CustomPagination from "./layouts/CustomPagination";
 import Filters from "./layouts/Filters";
  
+import CarouselComp from "./layouts/Carousel";
+ 
  
  
 const Home = () => {
@@ -62,9 +64,10 @@ const Home = () => {
           )
         }
         <div className= {  keyword ? "col-6 col-md-9 ": " col-6  col-md-12"}>
+          <CarouselComp />
           <h1 id="products_heading" className="text-secondary">
            {
-            keyword ? `${data?.products?.length} products found with keyword ${keyword}` :'Latest Products'
+            keyword ? `${data?.products?.length} products found with keyword ${keyword}` :'Recents Products'
            }
           </h1>
 
