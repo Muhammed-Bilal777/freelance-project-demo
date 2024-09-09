@@ -10,7 +10,7 @@ export const authApi = createApi({
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-         'Access-Control-Allow-Credentials': 'true'
+        
     }
    }),
   endpoints: (builder) => ({
