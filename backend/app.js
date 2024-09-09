@@ -39,18 +39,19 @@ app.use(
 // const allowedOrigins = ['http://localhost:3000', 'https://freelance-project-demo.onrender.com'];
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'https://freelance-project-demo-2.onrender.com'
-    ];
+  // origin: (origin, callback) => {
+  //   const allowedOrigins = [
+  //     'http://localhost:3000',
+  //     'https://freelance-project-demo-2.onrender.com'
+  //   ];
 
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  //   if (allowedOrigins.includes(origin)) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'));
+  //   }
+  // },
+  origin: 'https://freelance-project-demo-2.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   credentials: true,
   sameSite: 'none', // add this line
