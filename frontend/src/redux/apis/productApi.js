@@ -3,7 +3,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const productApi = createApi({
   reducerPath: "productApi",
   
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:"include" , withCredentials: true,} ),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1" ,credentials:"include" , withCredentials: true,
+    headers: {
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        
+    }
+  } ),
   tagTypes: ["Product", "AdminProducts"],
   mode: "cors",
 headers: {
