@@ -11,10 +11,9 @@ const Search = () => {
         e.preventDefault();
         if(keyword.trim()){
             navigate(`?keyword=${keyword}`)
-            setKeyword('')
+            console.log(`${keyword}`);             
         }else{
-             navigate('/')
-             setKeyword('')
+             navigate('/')      
         }
     }
   return (
@@ -31,9 +30,9 @@ const Search = () => {
               onChange={(e)=>setKeyword(e.target.value)}
               
             />
-            <button id="search_btn" className="btn" type="submit">
-          <i ><BiSearchAlt size={20} color="#000"/></i>
-        </button>
+            <button   id="search_btn" className="btn" type="submit">
+              <i ><BiSearchAlt size={20} color="#000"/></i>
+            </button>
           </div>
         </form>
   )

@@ -47,6 +47,7 @@ const dispatch =useDispatch()
     orderApi.util.resetApiState();
     orderApi.util.invalidateTags(['Orders']);
     navigate('/');
+    navigate(0)
     dispatch(setIsAuthenticated(false))
     dispatch(setUser(null))
     

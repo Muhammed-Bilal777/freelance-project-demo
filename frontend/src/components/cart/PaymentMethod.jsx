@@ -24,26 +24,31 @@ const PaymentMethod = () => {
    const dispatch = useDispatch()
     const [stripeCheckoutSession ,{ data :CheckoutData , error:checkoutError, 
       isSuccess : checkoutSuccess }] =useStripeCheckoutSessionMutation()
+
   useEffect(() => {
-    if (error) {
+    if (checkoutError) {
       toast.error(error?.message);
+      
+      
     }
 
     if (isSuccess) {
-      toast.error("Ordered Successfully");
+      toast.success("Ordered Successfully");
       navigate("/me/orders?order_success=true");
-     
+       
     }
-  }, [error,data, isSuccess]);
+  }, [isSuccess]);
 
 
   useEffect(()=>{
     if(CheckoutData){
       navigate(CheckoutData?.url)
-    }toast.error(checkoutError?.message)
+      
+    }
 
     if(checkoutError){
-      toast.error(checkoutError)
+      
+      toast.error(checkoutError?.message)
     }
 
     if(checkoutSuccess){

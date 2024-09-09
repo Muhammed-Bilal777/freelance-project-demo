@@ -3,7 +3,7 @@ import { setIsAuthenticated, setLoading, setUser } from "../features/userSlice";
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1", credentials:'include',
+  baseQuery: fetchBaseQuery({ baseUrl: "/api/v1", credentials:'include',
 
     
   }),
