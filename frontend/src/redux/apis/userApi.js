@@ -3,7 +3,15 @@ import { setIsAuthenticated, setLoading, setUser } from "../features/userSlice";
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4040/api/v1", credentials:'include',
+
+    headers: {
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        
+    }
+  }),
   tagTypes : ["User"],
   endpoints: (builder) => ({
     getMe: builder.query({
