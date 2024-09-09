@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userApi } from "./userApi";
+import { setIsAuthenticated, setUser } from "../features/userSlice";
  
  
 
@@ -45,7 +46,8 @@ export const authApi = createApi({
         try {
           await queryFulfilled;
           await dispatch(userApi.endpoints.getMe.initiate(null));
-           
+          setIsAuthenticated(false)
+           setUser(null)
         } catch (error) {
           console.log(error);
         }
@@ -57,5 +59,5 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation  ,useLazyLogoutQuery  } =
+export const { useLoginMutation, useRegisterMutation  ,useLogoutQuery  } =
   authApi;
