@@ -15,24 +15,17 @@ const Login = () => {
   const [login, { isLoading, error, data, isSuccess,  }] = useLoginMutation({
     refetch: true, // Refetch user data after successful login
   });
-
-  console.log(data);
-  
-
+ 
   useEffect(() => {
      
     if (error) {
       toast.error(error?.data?.message);
       
-    }else if(isSuccess){
-      toast.success(data?.message)
     }
-
     if(isSuccess){
+      toast.success(data?.message)
       navigate('/')
       navigate(0)
-      
-      
     }
   }, [error,isSuccess ]);
 
@@ -42,7 +35,7 @@ const Login = () => {
     if (isSuccess) {
       refetch(); // Refetch the getMe query when the user logs in for the second time
     }
-  }, [isSuccess]);
+  }, [data]);
 
   
   

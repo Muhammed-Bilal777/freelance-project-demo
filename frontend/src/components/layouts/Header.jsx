@@ -39,11 +39,11 @@ const dispatch =useDispatch()
         toast.success("Logged Out")
        }
        
-   },[isSuccess,])
+   },[isSuccess])
 
   const logoutHandler = () => {
      logout();
-     refetch()
+    //  refetch()
     orderApi.util.resetApiState();
     orderApi.util.invalidateTags(['Orders']);
     navigate('/');
