@@ -29,7 +29,7 @@ const Dashboard = () => {
         endDate: endDate.toISOString(),
       });
     }
-  }, [error,data,isSuccess]);
+  }, [error,isSuccess]);
 
   const submitHandler = () => {
     getDashboardSales({
