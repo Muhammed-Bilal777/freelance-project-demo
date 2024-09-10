@@ -69,7 +69,7 @@ const Register = () => {
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form className="shadow rounded bg-body" onSubmit={submitHandler}>
+        <form className="shadow rounded bg-body mt-4" onSubmit={submitHandler}>
           <h2 className="mb-4">Register</h2>
 
           <div className="mb-3">

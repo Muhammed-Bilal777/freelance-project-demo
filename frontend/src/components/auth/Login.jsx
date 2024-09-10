@@ -4,16 +4,16 @@ import toast from "react-hot-toast";
  
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/apis/authApi";
-import { useGetMeQuery } from "../../redux/apis/userApi";
+ 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    
   const navigate = useNavigate();
-  // const { refetch } = useGetMeQuery();
+  
   const [login, { isLoading, error, data, isSuccess,  }] = useLoginMutation({
-    refetch: true, // Refetch user data after successful login
+    refetch: true,  
   });
  
   useEffect(() => {
@@ -23,20 +23,15 @@ const Login = () => {
       
     }
     if(isSuccess){
-      toast.success(data?.message)
       navigate('/')
-      navigate(0)
+      toast.success("Succesfully logged In")
+    
+      
     }
   }, [error,isSuccess ]);
 
 
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     refetch(); // Refetch the getMe query when the user logs in for the second time
-  //   }
-  // }, [data]);
-
+ 
   
   
   const submitHandler = (e) => {
@@ -57,7 +52,7 @@ const Login = () => {
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form className="shadow rounded bg-body" onSubmit={submitHandler}>
+        <form className="shadow rounded bg-body mt-4" onSubmit={submitHandler}>
           <h2 className="mb-4">Login</h2>
           <div className="mb-3">
             <label htmlFor="email_field" className="form-label">

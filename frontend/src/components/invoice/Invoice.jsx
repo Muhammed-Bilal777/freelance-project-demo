@@ -50,7 +50,7 @@ const Invoice = () => {
         <div id="order_invoice" className="p-3 border border-secondary">
           <header className="clearfix">
             <div id="logo">
-              <img src="/images/invoice-logo.png" alt="Company Logo" />
+              <img src="/images/seasonstarlogo.png" alt="Company Logo" />
             </div>
             <h1>INVOICE # {order?._id}</h1>
             <div id="company" className="clearfix">
@@ -62,7 +62,7 @@ const Invoice = () => {
               </div>
               <div>(602) 519-0450</div>
               <div>
-                <a href="mailto:info@shopit.com">info@shopit.com</a>
+                <a href="mailto:info@seasonstoret.com">info@seasonstore.com</a>
               </div>
             </div>
             <div id="project">
@@ -105,9 +105,9 @@ const Invoice = () => {
                   <tr>
                     <td className="service">{item?.product}</td>
                     <td className="desc">{item?.name}</td>
-                    <td className="unit">${item?.price}</td>
+                    <td className="unit">₹{item?.price}</td>
                     <td className="qty">{item?.quantity}</td>
-                    <td className="total">${item?.price * item?.quantity}</td>
+                    <td className="total">₹{item?.price * item?.quantity}</td>
                   </tr>
                 ))}
 
@@ -115,28 +115,28 @@ const Invoice = () => {
                   <td colspan="4">
                     <b>SUBTOTAL</b>
                   </td>
-                  <td className="total">${order?.itemsPrice}</td>
+                  <td className="total">₹{order?.itemsPrice}</td>
                 </tr>
 
                 <tr>
                   <td colspan="4">
                     <b>TAX 15%</b>
                   </td>
-                  <td className="total">${order?.taxAmount}</td>
+                  <td className="total">₹{order?.taxAmount}</td>
                 </tr>
 
                 <tr>
                   <td colspan="4">
                     <b>SHIPPING</b>
                   </td>
-                  <td className="total">${order?.shippingAmount}</td>
+                  <td className="total">₹{order?.shippingAmount}</td>
                 </tr>
 
                 <tr>
                   <td colspan="4" className="grand total">
                     <b>GRAND TOTAL</b>
                   </td>
-                  <td className="grand total">${order?.totalAmount}</td>
+                  <td className="grand total">₹{order?.totalAmount}</td>
                 </tr>
               </tbody>
             </table>

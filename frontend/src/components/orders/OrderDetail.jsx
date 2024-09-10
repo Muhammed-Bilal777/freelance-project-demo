@@ -115,7 +115,7 @@ const OrderDetails = () => {
               </tr>
               <tr>
                 <th scope="row">Amount Paid</th>
-                <td>${totalAmount}</td>
+                <td>₹{totalAmount}</td>
               </tr>
             </tbody>
           </table>
@@ -140,7 +140,7 @@ const OrderDetails = () => {
                 </div>
 
                 <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                  <p>${item?.price}</p>
+                  <p>₹{item?.price}</p>
                 </div>
 
                 <div className="col-4 col-lg-3 mt-4 mt-lg-0">

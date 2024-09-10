@@ -9,7 +9,7 @@ import { delete_file, upload_file } from "../utils/cloudinary.js";
 //Get All Products  /api/v1/products
 export const getAllProducts= catchAsync(async (req,res,next)=>{
   
-   let resPerPage = 4;
+   let resPerPage = 8;
    const apiFilters = new APIFilters(Product,req.query).search().filters()
   
    let products = await apiFilters.query;

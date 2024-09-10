@@ -123,7 +123,7 @@ nav {
 }
 
 .App {
-  min-height: 100vh;
+ 
   display: flex;
   flex-direction: column;
 }
@@ -579,4 +579,22 @@ footer {
   }
 }
 
+.carousel-control-next-icon::after,
+.carousel-control-prev-icon::after{
+   display: none !important;
+}
+
+
+.carousel-indicators li::marker{
+  display: none !important;
+}
+
+.h-550{
+  height: 550px;
+}
+
+.footer-icons .fab:hover::before,
+.footer-links a:hover{
+  color: #ec8907 !important;
+}
  

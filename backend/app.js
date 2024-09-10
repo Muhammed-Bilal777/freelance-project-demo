@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 });
 const corsOptions = {
    
-  origin: 'https://freelance-project-demo-2.onrender.com',
+  origin: 'http://localhost:3000' , //'https://freelance-project-demo-2.onrender.com',
   // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   credentials: true,
   accessControlAllowCredentials: true,

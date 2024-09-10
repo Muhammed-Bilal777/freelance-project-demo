@@ -59,8 +59,8 @@ const ConfirmOrder = () => {
 
                   <div className="col-4 col-lg-4 mt-4 mt-lg-0">
                     <p>
-                      {item?.quantity} x ${item?.price} ={" "}
-                      <b>${(item?.quantity * item.price).toFixed(2)}</b>
+                      {item?.quantity} x ₹{item?.price} ={" "}
+                      <b>₹{(item?.quantity * item.price).toFixed(2)}</b>
                     </p>
                   </div>
                 </div>
@@ -76,20 +76,20 @@ const ConfirmOrder = () => {
             <hr />
             <p>
               Subtotal:{" "}
-              <span className="order-summary-values">${itemsPrice}</span>
+              <span className="order-summary-values">₹{itemsPrice}</span>
             </p>
             <p>
               Shipping:{" "}
-              <span className="order-summary-values">${shippingPrice}</span>
+              <span className="order-summary-values">₹{shippingPrice}</span>
             </p>
             <p>
-              Tax: <span className="order-summary-values">${taxPrice}</span>
+              Tax: <span className="order-summary-values">₹{taxPrice}</span>
             </p>
 
             <hr />
 
             <p>
-              Total: <span className="order-summary-values">${totalPrice}</span>
+              Total: <span className="order-summary-values">₹{totalPrice}</span>
             </p>
 
             <hr />

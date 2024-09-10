@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
  
  
 import { useLazyGetDashboardSalesQuery } from "../../redux/apis/orderApi";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Dashboard = () => {
   const [startDate, setStartDate] = useState(new Date().setDate(1));
@@ -17,6 +18,10 @@ const Dashboard = () => {
 
   const [getDashboardSales, { error, isLoading, data ,isSuccess}] =
     useLazyGetDashboardSalesQuery();
+
+    const [useparams] =useSearchParams();
+    console.log(useparams);
+    
 
   useEffect(() => {
     if (error) {

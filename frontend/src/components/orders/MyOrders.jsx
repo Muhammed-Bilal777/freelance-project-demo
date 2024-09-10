@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { FaEye } from "react-icons/fa";
-import { AiFillPrinter } from "react-icons/ai";
+ 
 import { toast } from "react-hot-toast";
 import { MDBDataTable } from "mdbreact";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -73,19 +72,19 @@ const MyOrders = () => {
     data?.orders?.forEach((order) => {
       orders.rows.push({
         id: order?._id,
-        amount: `$${order?.totalAmount}`,
+        amount: `₹${order?.totalAmount}`,
         status: order?.paymentInfo?.status?.toUpperCase(),
         orderStatus: order?.orderStatus,
         actions: (
           <>
             <Link to={`/me/orders/${order?._id}`} className="btn btn-primary">
-              <i className="fa fa-eye"><FaEye /></i>
+              <i className="fa fa-eye"> </i>
             </Link>
             <Link
               to={`/invoice/order/${order?._id}`}
               className="btn btn-success ms-2"
             >
-              <i className="fa fa-print"><AiFillPrinter /></i>
+              <i className="fa fa-print"> </i>
             </Link>
           </>
         ),

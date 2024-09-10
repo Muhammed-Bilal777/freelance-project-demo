@@ -83,7 +83,7 @@ const navigate=useNavigate()
                         </Link>
                       </div>
                       <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                        <p id="card_item_price">${item?.price}</p>
+                        <p id="card_item_price">₹{item?.price}</p>
                       </div>
                       <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                         <div className="stockCounter d-inline">
@@ -114,7 +114,7 @@ const navigate=useNavigate()
                           id="delete_cart_item"
                           className="fa fa-trash btn btn-danger"
                           onClick={() => removeCartItemHandler(item?.product)}
-                        ><MdDeleteForever size={25} color="#fa9c23"/></i>
+                        > </i>
                       </div>
                     </div>
                   </div>
@@ -137,7 +137,7 @@ const navigate=useNavigate()
                 <p>
                   Est. total:{" "}
                   <span className="order-summary-values">
-                    $
+                  ₹
                     {cartItems
                       ?.reduce(
                         (acc, item) => acc + item?.quantity * item.price,

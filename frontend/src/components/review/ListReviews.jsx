@@ -8,7 +8,7 @@ const ListReviews = ({ reviews }) => {
         <h3>Other's Reviews:</h3>
         <hr />
         {reviews?.map((review) => (
-          <div key={review?._id} class="review-card my-3">
+          <div key={review?._id} class="review-card d-flex my-3">
             <div class="row">
               <div class="col-1">
                 <img

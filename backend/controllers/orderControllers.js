@@ -98,21 +98,23 @@ export const updateOrder =catchAsync(async(req,res,next)=>{
 
 export const updateOrderDetails =catchAsync(async (req,res,next)=>{
 
-    let orderItems = await Order.findById(req?.params?.id);
-    if(!orderItems){
+    let order  = await Order.findById(req?.params?.id);
+    console.log(order);
+    
+    if(!order){
         return next(new sendError("order not found with id",403))
     }
 
-    if (orderItems?.orderStatus === "Delivered") {
+    if (order?.orderStatus === "Delivered") {
         return next(new sendError("You have already delivered this order", 400));
       }
 
 
 
 
-      const productNotFound =false;
+      let productNotFound =false;
 
-    for(const item of orderItems){
+    for(const item of order.orderItems){
         const product= await Product.findById(item.product.toString());
          
         

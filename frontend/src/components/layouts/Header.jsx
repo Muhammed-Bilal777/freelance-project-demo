@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Search from "./Search";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,11 +6,16 @@ import { useGetMeQuery     } from "../../redux/apis/userApi";
 import { useSelector } from "react-redux";
 import { useLazyLogoutQuery } from "../../redux/apis/authApi";
 import { useDispatch } from "react-redux";
-import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
+
 import { orderApi } from "../../redux/apis/orderApi";
 import toast from "react-hot-toast";
+import { setIsAuthenticated, setUser } from "../../redux/features/userSlice";
+ 
  
 const Header = () => {
+
+ 
+  
 const dispatch =useDispatch()
   const navigate = useNavigate();
  
@@ -35,19 +40,22 @@ const dispatch =useDispatch()
     if(error){
       toast.error(error)
     }
-       if(isSuccess){
+     if(isSuccess){
+     
+      navigate('/');
         toast.success("Logged Out")
+        navigate(0)
        }
        
-   },[isSuccess])
+   },[error,isSuccess])
 
   const logoutHandler = () => {
      logout();
     //  refetch()
     orderApi.util.resetApiState();
     orderApi.util.invalidateTags(['Orders']);
-    navigate('/');
-    navigate(0)
+   
+    
     // dispatch(setIsAuthenticated(false))
     // dispatch(setUser(null))
     
@@ -58,12 +66,13 @@ const dispatch =useDispatch()
    
 
   return (
-    <nav className="navbar row">
+    <>
+<nav className="navbar row sticky-top top-1 ">
       <div className="col-12 col-md-3 ps-5">
         <div className="navbar-brand">
            
           <Link to="/">
-          <img src="/images/shopit_logo.png" alt="ShopIT Logo" />
+          <img src="/images/seasonstarlogo.png" style={{width:"175px"}} className=''alt="seassontoree Logo w-[175]" />
           </Link>
         </div>
       </div>
@@ -141,8 +150,13 @@ const dispatch =useDispatch()
 
         
       </div>
+      
     </nav>
+    
+    </>
   );
 };
 
 export default Header;
+
+
